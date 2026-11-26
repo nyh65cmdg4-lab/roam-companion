@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#07131d"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon-192.png">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="style.css"><title>Roam Companion</title>
+</head>
+<body>
+<header><div><small>ROAM CONTROL</small><h1>Roam Companion</h1></div><span id="state" class="state">● IDLE</span></header>
+<nav><button class="tab active" data-tab="mapview">地図</button><button class="tab" data-tab="routes">ルート</button><button class="tab" data-tab="saved">保存</button><button class="tab" data-tab="settings">設定</button></nav>
+<main>
+<section id="mapview" class="pane active">
+<div class="search"><input id="query" placeholder="場所を検索"><button id="searchBtn">検索</button></div>
+<div id="results"></div><div id="map"></div>
+<div class="coords"><div><small>表示中の座標</small><strong id="coords">35.68120, 139.76710</strong></div><button id="saveBtn">☆ 保存</button><button id="recordBtn">履歴</button></div>
+<div class="control">
+<div class="joy-wrap"><small>JOYSTICK</small><div id="joy"><span>▲</span><span>◀</span><b></b><span>▶</span><span>▼</span></div></div>
+<div class="adjust"><label>移動速度 <b id="speedText">4.0 m/s</b></label><input id="speed" type="range" min=".5" max="30" step=".5" value="4">
+<div class="modes"><button class="mode selected" data-mode="Walk">徒歩</button><button class="mode" data-mode="Cycle">自転車</button><button class="mode" data-mode="Drive">車</button></div>
+<div class="actions"><button id="start">▶ 開始</button><button id="stop" class="secondary">■ 停止</button></div></div></div>
+<p id="status" class="status">準備完了。地図をタップしてルート地点を追加できます。</p>
+</section>
+<section id="routes" class="pane">
+<h2>ルート作成</h2><p>地図をタップして地点を追加。ルート再生はこのアプリ内だけで行われます。</p>
+<div class="statline">ルート地点 <b id="pointCount">0</b></div>
+<div class="actions stacked"><button id="importBtn">GPXを読み込む</button><button id="exportBtn">GPXを書き出す</button><button id="clearBtn" class="danger">ルートを消去</button><button id="backMap" class="secondary">地図に戻る</button></div>
+<input id="gpxFile" type="file" accept=".gpx,.xml,text/xml" hidden>
+</section>
+<section id="saved" class="pane"><h2>お気に入り</h2><div id="favorites" class="items"></div><h2>履歴</h2><div id="history" class="items"></div></section>
+<section id="settings" class="pane"><h2>設定</h2><div class="setting"><b>実際の位置情報</b><p>許可すると、このアプリ内の地図を現在地に移動します。</p><button id="locate">現在地を取得</button></div><div class="setting"><b>接続・位置情報について</b><p>このWebアプリが変更できるのは、アプリ内に表示する座標だけです。iPhone全体や他のアプリが受け取るGPS位置情報は変更できません。</p></div><div class="setting"><b>データ</b><p>お気に入り・履歴はこのiPhoneのブラウザ内に保存されます。</p><button id="clearData" class="danger">保存データを全消去</button></div></section>
+</main>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script><script src="app.js"></script>
+</body></html>
